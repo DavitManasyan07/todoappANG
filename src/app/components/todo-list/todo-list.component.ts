@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {NgForOf} from "@angular/common";
 import ToDo from "../../models/todo";
+import {TodoService} from "../../services/todo.service";
 
 @Component({
   selector: 'app-todo-list',
@@ -12,9 +13,11 @@ import ToDo from "../../models/todo";
   styleUrl: './todo-list.component.css'
 })
 export class TodoListComponent {
-todos = [new ToDo("1","go to gym",false),
-  new ToDo("1","go to gym",false),
-  new ToDo("1","go to gym",false)];
+  todos: ToDo[] = [];
+
+constructor(private todoService: TodoService){
+}
 ngOnInit(){
+    this.todos = this.todoService.getAll()
 }
 }
