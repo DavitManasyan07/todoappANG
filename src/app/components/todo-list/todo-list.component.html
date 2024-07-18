@@ -1,0 +1,16 @@
+
+
+<div class="container-sm border border-secondary-subtle mt-4 p-3">
+  <div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Add Todo" aria-label="Recipient's username" aria-describedby="basic-addon2">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button">Add</button>
+  </div>
+</div>
+<ul class="list-group">
+  <li *ngFor="let todo of todos" class="list-group-item">
+    <input class="form-check-input me-2" type="checkbox">
+    <label class="form-check-label"> {{todo.title}}</label>
+  </li>
+</ul>
+</div>
