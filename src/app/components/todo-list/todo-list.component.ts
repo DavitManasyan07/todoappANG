@@ -20,4 +20,10 @@ constructor(private todoService: TodoService){
 ngOnInit(){
     this.todos = this.todoService.getAll()
 }
+
+  onAdd(value: string) {
+    const todo = new ToDo("-1", value,false)
+    const add = this.todoService.create(todo)
+    this.todos.push(add)
+  }
 }
