@@ -8,9 +8,9 @@ import ToDo from "../models/todo";
 export class TodoService {
 
   todos = [
-    new ToDo("1","go to gym",false),
-    new ToDo("2","go to gym",false),
-    new ToDo("3","go to gym",false)
+    new ToDo("1","go to gym",false,false),
+    new ToDo("2","go to gym",false,false),
+    new ToDo("3","go to gym",false,false)
   ];
 
   getAll(){
@@ -23,8 +23,14 @@ export class TodoService {
     return updTodo;
   }
 
-  remove(){
+  delete(id: string): string{
+    const index = this.todos.findIndex(todo => todo.id === id);
+    this.todos.splice(index, 1);
+    return id;
+  }
+
+
+  update(todo: ToDo){
 
   }
-  dfgdfggdf
 }
