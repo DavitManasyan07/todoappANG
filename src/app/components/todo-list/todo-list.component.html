@@ -1,21 +1,29 @@
 <div class="container-sm border border-secondary-subtle mt-4 p-3">
   <div class="input-group mb-3">
-  <input #inputElement type="text" (keydown.enter)="onAdd(inputElement.value); inputElement.value = ''" class="form-control" placeholder="Add Todo" aria-label="Recipient's username" aria-describedby="basic-addon2">
-  <div class="input-group-append">
-    <button class="btn btn-outline-secondary" type="button"   (click)="onAdd(inputElement.value); inputElement.value = ''">Add</button>
+    <input #inputElement type="text" (keydown.enter)="onAdd(inputElement.value); inputElement.value = ''"
+           class="form-control"
+           placeholder="Add Todo" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button"
+              (click)="onAdd(inputElement.value); inputElement.value = ''">Add
+      </button>
+    </div>
   </div>
+  <ul class="list-group">
+    <li *ngFor="let todo of todos" class="list-group-item d-flex justify-content-between">
+      <div class="d-flex align-items-center w-75">
+        <input class="form-check-input me-2 " type="checkbox">
+        <input #todoTitlInput class="form-check-label border-0 shadow-none border-none w-75" type="text"
+               [ngClass]="{'todo-title--readonly' : !todo.isEditing}" [readOnly]="!todo.isEditing" [value]="todo.title">
+      </div>
+      <div *ngIf="todo.isEditing" class="svaeORdelete">
+        <i class="bi bi-cloud-download me-2 save-icon" (click)="onSave(todo,todoTitlInput.value)"></i>
+        <i class="bi bi-x-octagon-fill cancel-icon" (click)="onCancel(todo)"></i>
+      </div>
+      <div *ngIf="!todo.isEditing" class="action-container">
+        <i class="bi bi-pencil-square me-2 edit-icon" (click)="onEdit(todo)"></i>
+        <i class="bi bi-trash delete-icon" (click)="onDelete(todo.id)"></i>
+      </div>
+    </li>
+  </ul>
 </div>
-<ul class="list-group">
-  <li *ngFor="let todo of todos" class="list-group-item d-flex justify-content-between">
-    <div class="d-flex align-items-center">
-      <input class="form-check-input me-2 " type="checkbox">
-      <input class="form-check-label border-0 shadow-none" type="text" [readOnly]="!todo.isEditing" [value]="todo.title">
-    </div>
-    <div>
-    <i class="bi bi-pencil-square me-2"></i>
-    <i class="bi bi-trash" (click)="onDelete(todo.id)"></i>
-    </div>
-  </li>
-</ul>
-</div>
-
