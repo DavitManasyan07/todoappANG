@@ -8,21 +8,40 @@
               (click)="onAdd(inputElement.value); inputElement.value = ''">Add
       </button>
     </div>
+
   </div>
-  <ul class="list-group">
-    <li *ngFor="let todo of todos" class="list-group-item d-flex justify-content-between">
+  <div class="list-group-item d-flex justify-content-between  m-1 align-items-center">
+    <h5>ToDo Items</h5>
+    <button class="btn btn-outline-secondary" (click)="onDeleteAll()">Delete All</button>
+  </div>
+  <ul class="list-group todo-items--container">
+    <li *ngFor="let todo of todos"
+        class="list-group-item d-flex justify-content-between">
       <div class="d-flex align-items-center w-75">
-        <input class="form-check-input me-2 " type="checkbox">
-        <input #todoTitlInput class="form-check-label border-0 shadow-none border-none w-75" type="text"
-               [ngClass]="{'todo-title--readonly' : !todo.isEditing}" [readOnly]="!todo.isEditing" [value]="todo.title">
+        <input class="form-check-input me-2 "
+               type="checkbox"
+               (change)="onChange(todo)"
+               [(ngModel)]="todo.done"
+               (ngModelChange)="onChange(todo)">
+        <input #todoTitleInput
+               class="form-check-label border-0 shadow-none border-none w-75"
+               type="text"
+               (keydown.enter)="onSave(todo,todoTitleInput.value)"
+               [ngClass]="{'todo-title--readonly' : !todo.isEditing,'done' : todo.done}"
+               [readOnly]="!todo.isEditing"
+               [value]="todo.title">
       </div>
-      <div *ngIf="todo.isEditing" class="svaeORdelete">
-        <i class="bi bi-cloud-download me-2 save-icon" (click)="onSave(todo,todoTitlInput.value)"></i>
-        <i class="bi bi-x-octagon-fill cancel-icon" (click)="onCancel(todo)"></i>
+      <div *ngIf="todo.isEditing" class="save-or-delete">
+        <i class="bi bi-cloud-download me-2 save-icon"
+           (click)="onSave(todo,todoTitleInput.value)"></i>
+        <i class="bi bi-x-octagon-fill cancel-icon"
+           (click)="onCancel(todo)"></i>
       </div>
       <div *ngIf="!todo.isEditing" class="action-container">
-        <i class="bi bi-pencil-square me-2 edit-icon" (click)="onEdit(todo)"></i>
-        <i class="bi bi-trash delete-icon" (click)="onDelete(todo.id)"></i>
+        <i class="bi bi-pencil-square me-2 edit-icon"
+           (click)="onEdit(todo)"></i>
+        <i class="bi bi-trash delete-icon"
+           (click)="onDelete(todo.id)"></i>
       </div>
     </li>
   </ul>

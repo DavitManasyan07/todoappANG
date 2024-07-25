@@ -1,6 +1,15 @@
-.todo-title--readonly{
+.todo-title--readonly {
   border: none;
   outline: none;
+}
+
+.done {
+  text-decoration: line-through;
+}
+
+.todo-items--container {
+  max-height: 85vh;
+  overflow-y: auto;
 }
 
 

@@ -6,26 +6,25 @@ import ToDo from "../models/todo";
 })
 export class TodoService {
 
-  todos = [
-    new ToDo("1", "go to gym", false, false),
-    new ToDo("2", "go to gym", false, false),
-    new ToDo("3", "go to gym", false, false)
-  ];
+  todos: ToDo[] = [];
 
   getAll() {
+    this.todos = JSON.parse(localStorage.getItem("todoItems") || "[]")
     return [...this.todos]
   }
 
   create(todo: ToDo) {
     const id = new Date().getTime().toString();
     const updTodo = {...todo, id: id};
-    this.todos.push(updTodo);
+    this.todos.unshift(updTodo);
+    this.setAll(this.todos)
     return updTodo;
   }
 
   delete(id: string): string {
     const index = this.todos.findIndex(todo => todo.id === id);
     this.todos.splice(index, 1);
+    this.setAll(this.todos)
     return id;
   }
 
@@ -33,6 +32,16 @@ export class TodoService {
   update(listTodo: ToDo): ToDo | undefined {
     const index = this.todos.findIndex(todo => todo.id === listTodo.id);
     this.todos[index] = {...listTodo}
+    this.setAll(this.todos)
     return this.todos[index]
+  }
+
+  deleteAll(): void {
+    this.todos = []
+    this.setAll(this.todos)
+  }
+
+  private setAll(todos: ToDo[]) {
+    localStorage.setItem("todoItems", JSON.stringify(this.todos));
   }
 }
